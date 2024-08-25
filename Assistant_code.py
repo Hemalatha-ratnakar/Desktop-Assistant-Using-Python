@@ -6,7 +6,7 @@ import webbrowser as wb
 import pywhatkit as pw
 import os
 import random
-import subprocess
+
 
 # Initialize the text-to-speech engine
 speech_engine = pyttsx3.init('sapi5')
