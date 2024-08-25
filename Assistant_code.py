@@ -10,6 +10,8 @@ import subprocess
 
 # Initialize the text-to-speech engine
 speech_engine = pyttsx3.init('sapi5')
+
+# Set properties for the speech engine (rate of speech and volume)
 speech_engine.setProperty('rate', 200)
 speech_engine.setProperty('volume', 1)
 
@@ -22,13 +24,15 @@ def speak(audio):
     speech_engine.say(audio)
     speech_engine.runAndWait()
 
+# Function to listen and recognize voice commands
 def takeCommands():
-    rcg = sr.Recognizer()
-    with sr.Microphone() as source:
+    rcg = sr.Recognizer() # Initialize the recognizer
+    with sr.Microphone() as source:     # Use the microphone as the audio source
         print("Listening...")
         audio = rcg.listen(source)
     try:
         print("Recognizing...")
+        # Recognize the spoken words using Google's speech recognition
         text = rcg.recognize_google(audio)
         print("User said:",text)
         return text.lower()
@@ -40,6 +44,8 @@ def takeCommands():
 def greetMe():
     """Greet the user based on the time of day."""
     hour = int(datetime.datetime.now().hour)
+
+     # Determine the appropriate greeting
     if hour >= 0 and hour < 12:
         speak("Good Morning!")
     elif hour >= 12 and hour < 18:
@@ -79,10 +85,11 @@ def closeNotepad():
 
 def playMusic():
     """Play a random song from the music directory."""
-    music_path = r"C:\Users\lhema\Music"
+    #music_path = r"C:\Users\lhema\Music"
+    music_path = os.path.join(os.path.expanduser('~'), 'Music')
     songs = os.listdir(music_path)
-    os.startfile(os.path.join(music_path, random.choice(songs)))
-    #os.system("tasklist")
+    song_path = os.path.join(music_path, random.choice(songs))
+    os.startfile(song_path)
 
 def stopMusic():
     """Stop the music player."""
@@ -156,10 +163,11 @@ def executeCommand(command):
         return False  # Signal to exit the loop
     return True  # Continue the loop
 
+# Main function
 if __name__ == "__main__":
-    greetMe()
+    greetMe()  # Greet the user
     while True:
-        command = takeCommands()
-        if command:
-            if not executeCommand(command):
+        command = takeCommands()  # Listen for user commands
+        if command:   # If a command was received
+            if not executeCommand(command):  # Execute the command and check if it signals to stop
                 break  # Exit the loop if the command signals to stop
