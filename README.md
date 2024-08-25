@@ -1,0 +1,1 @@
+This Python Desktop Assistant is a voice-controlled application that can perform a variety of tasks such as opening websites, playing music, telling the current time, and more. The assistant leverages the `SpeechRecognition` and `pyttsx3` libraries for voice recognition and text-to-speech capabilities.
