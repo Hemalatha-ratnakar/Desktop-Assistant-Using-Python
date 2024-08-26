@@ -43,9 +43,9 @@ def takeCommands():
 
 def greetMe():
     """Greet the user based on the time of day."""
-    hour = int(datetime.datetime.now().hour)
+    hour = datetime.datetime.now().hour
 
-     # Determine the appropriate greeting
+    # Determine the appropriate greeting
     if hour >= 0 and hour < 12:
         speak("Good Morning!")
     elif hour >= 12 and hour < 18:
@@ -85,7 +85,6 @@ def closeNotepad():
 
 def playMusic():
     """Play a random song from the music directory."""
-    #music_path = r"C:\Users\lhema\Music"
     music_path = os.path.join(os.path.expanduser('~'), 'Music')
     songs = os.listdir(music_path)
     song_path = os.path.join(music_path, random.choice(songs))
